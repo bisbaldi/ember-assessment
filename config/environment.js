@@ -22,6 +22,7 @@ module.exports = function(environment) {
       // when it is created
     },
     torii: {
+      sessionServiceName: 'session',
       providers: {
         'google-oauth2': {
           apiKey: '253949176510-84legoc2asc8glnbo2feq6l41itqph4m.apps.googleusercontent.com',

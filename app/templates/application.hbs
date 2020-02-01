@@ -1,4 +1,9 @@
 <div>
   <a {{action 'authenticateSession'}}>Login</a>
 </div>
+{{#if session.isAuthenticated}}
+  <h1>
+    Hey there {{session.currentUser.name}}
+  </h1>
+{{/if}}
 {{outlet}}
