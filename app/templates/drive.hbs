@@ -1,0 +1,7 @@
+{{#each model as |document|}}
+    <div class="md-list-item-text">
+      <h3>{{document.title}}</h3>
+      <h4>Modified by: {{document.lastModifyingUser.displayName}}</h4>
+      <img src="{{document.iconLink}}" />
+    </div>
+{{/each}}
