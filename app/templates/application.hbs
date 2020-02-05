@@ -1,10 +1,44 @@
+<BsNavbar
+  @type="dark"
+  @backgroundColor="secondary"
+  @collapsed={{true}}
+    @onCollapse={{action (mut collapsed) true}}
+  @onExpand={{action (mut collapsed) false}} as |navbar|>
+  <div class="navbar-header">
+    {{navbar.toggle}}
+    {{#link-to "index" class="navbar-brand"}}Ember.js Assessment{{/link-to}}
+  </div>
+  <navbar.content>
+    <navbar.nav as |nav|>
+      <nav.item>
+        <nav.link-to @route="index">Home</nav.link-to>
+      </nav.item>
+      <nav.item>
+        {{#if session.currentUser}}
+          <BsButton @type="secondary" @icon="glyphicon glyphicon-download">
+            <a {{action 'logout'}}>Logout</a>
+          </BsButton>        {{else}}
+          <BsButton @type="secondary" @icon="glyphicon glyphicon-download">
+            <a {{action 'authenticateSession'}}>Login</a>
+          </BsButton>        {{/if}}
+      </nav.item>
+    </navbar.nav>
+  </navbar.content>
+</BsNavbar>
 <div>
-  <a {{action 'authenticateSession'}}>Login</a>
+
 </div>
-{{#if session.isAuthenticated}}
-  <h1>
-    Hey there {{session.currentUser.name}}
-  </h1>
-  {{link-to "Drive" "drive"}}
+{{#if session.currentUser}}
+  <BsAlert @type="success">
+    <strong> Hey there!  </strong> You successfully logged in as {{session.currentUser.name}}.
+  </BsAlert>
+  <BsButton @type="secondary" @icon="glyphicon glyphicon-download" style="margin: 50px">
+    {{#file-upload name="photos"
+                   accept="image/*"
+                   onfileadd=(action "uploadImage") as |queue|}}
+        Upload file
+        <BsTooltip @placement="top">Click here to upload a file to your Google Drive.</BsTooltip>
+    {{/file-upload}}
+  </BsButton>
 {{/if}}
 {{outlet}}
